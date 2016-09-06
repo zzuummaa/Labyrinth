@@ -1,19 +1,7 @@
 #include <QCoreApplication>
-#include <map.h>
+#include <labyrinth.h>
 
 using namespace std;
-
-void show(vector<vector<int> > cells, int w, int h)
-{
-    for (int i = 0; i < h; i++) {
-        for (int j = 0; j < w; j++) {
-            cout << cells[i][j] << ' ';
-        }
-        cout << '\n';
-    }
-
-    cout << '\r';
-}
 
 void show(const int ways[])
 {
@@ -42,19 +30,24 @@ void createfile()
 
 int main()
 {
-    createfile();
+    //createfile();
 
     vector<vector<int> > cells;
-    load("in.txt", &cells);
 
-    int w = cells[0].size(), h = cells.size();
-    initcells(&cells, w, h);
+    //int w = cells[0].size(), h = cells.size();
+    //initcells(&cells, w, h);
+
+    labmap *lmap = new labmap(cells);
+    load2("in.txt", lmap);
+    cout << "loded cells:\n";
+    show((*lmap).cells);
+    cout << '\n';
+
+    waysearcher ws = waysearcher(*lmap);
 
     int ways[4];
-    labmap m = labmap(cells);
-    m.loadway(&ways[0], &ways[1], &ways[2], &ways[3]);
+    ws.loadway(&ways[0], &ways[1], &ways[2], &ways[3]);
 
-    show(m.cells, w, h);
     show(ways);
 }
 

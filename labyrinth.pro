@@ -9,8 +9,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     map.cpp \
-    mapload.cpp
+    mapload.cpp \
+    waysearcher.cpp
 
 HEADERS += \
-    map.h
+    map.h \
+    waysearcher.h \
+    labyrinth.h
 
