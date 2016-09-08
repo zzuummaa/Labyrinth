@@ -1,6 +1,27 @@
 #include <map.h>
+#include <sstream>
 
 void parseNums(string line, vector<vector<int> > *cells);
+
+void save(const char *filename, labmap *lmap)
+{
+    ofstream f(filename);
+    vector<vector<int> > *cells = lmap->cells;
+    string data;
+
+    for (int i = 0; i < (*cells).size(); i++) {
+        stringstream ss;
+        for (int j = 0; j < (*cells)[i].size(); j++) {
+            ss << (*cells)[i][j] << ' ';
+        }
+        data.append(ss.str().substr(0, ss.str().size()-1));
+        data.append("\n");
+    }
+    data.replace(0, data.size()-1, data.substr(0, data.size()-1));
+
+    f << data;
+    f.close();
+}
 
 void load(const char *filename, vector<vector<int> > *cells)
 {
@@ -31,7 +52,7 @@ void load2(const char *filename, labmap *lmap)
         cout << line << '\n';
     }
 
-    (*lmap).cells = *cells;
+    (*lmap).cells = cells;
     f.close();
 }
 

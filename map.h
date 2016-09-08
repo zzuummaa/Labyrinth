@@ -9,29 +9,49 @@
 
 using namespace std;
 
-void show(vector<vector<int> > cells);
+void show(vector<vector<int> > *cells);
 
 void initcells(vector<vector<int> > *cells, int w, int h);
 void initlabmap();
 
+/**
+ * @brief The labmap class
+ *
+ * Легенда:
+ *-1 - выход за пределы карты
+ * 0 - стена
+ * 1 - проход
+ * 2 - вход
+ * 3 - выход
+ * 4 - маршрут от входа к выходу
+ */
 class labmap
 {
 private:
     int w, h;
 public:
-    vector<vector<int> > cells;
+    vector<vector<int> > *cells;
     labmap();
-    labmap(vector<vector<int> > cells);
-    void setcells(vector<vector<int> > cells);
+    labmap(int width, int height);
+    labmap(vector<vector<int> > *cells);
+
     void loadway(int* l, int* r, int* u, int* d);
     void loadway(int *out, const int x, const int y);
-    int getcell(const int x, const  int y);
 
+    int getcell(const int x, const  int y);
+    bool setcell(const int x, const int y, const int val);
+    void setcells(vector<vector<int> > *cells);
+
+    int getWidth();
+    int getHeight();
 };
 
+void generate(labmap *lmap, int width, int height);
 
 void load(const char *filename, vector<vector<int> > *cells);
 void load2(const char *filename, labmap *lmap);
+
+void save(const char *filename, labmap *lmap);
 
 #endif // MAP
 

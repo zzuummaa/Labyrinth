@@ -10,7 +10,8 @@ TEMPLATE = app
 SOURCES += main.cpp \
     map.cpp \
     mapload.cpp \
-    waysearcher.cpp
+    waysearcher.cpp \
+    mapgenerator.cpp
 
 HEADERS += \
     map.h \

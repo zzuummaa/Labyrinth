@@ -1,16 +1,29 @@
 #include <QCoreApplication>
 #include <labyrinth.h>
+#include <sstream>
 
 using namespace std;
+
+void testss()
+{
+    int a = 10;
+    stringstream ss;
+
+    ss << a << ' ' << '\n';
+    ss << a;
+
+    cout << ss.str();
+    //cout << ss.str();
+
+    cout << '\n';
+}
 
 void show(const int ways[])
 {
     cout << "l = " << ways[0] << "; ";
     cout << "r = " << ways[1] << "; ";
     cout << "u = " << ways[2] << "; ";
-    cout << "d = " << ways[3];
-
-    cout << '\n';
+    cout << "d = " << ways[3] << "\n";
 }
 
 void createfile()
@@ -32,7 +45,7 @@ int main()
 {
     //createfile();
 
-    vector<vector<int> > cells;
+    vector<vector<int> > *cells;
 
     //int w = cells[0].size(), h = cells.size();
     //initcells(&cells, w, h);
@@ -40,7 +53,7 @@ int main()
     labmap *lmap = new labmap(cells);
     load2("in.txt", lmap);
     cout << "loded cells:\n";
-    show((*lmap).cells);
+    show(lmap->cells);
     cout << '\n';
 
     waysearcher ws = waysearcher(*lmap);
@@ -49,5 +62,17 @@ int main()
     ws.loadway(&ways[0], &ways[1], &ways[2], &ways[3]);
 
     show(ways);
+    cout << '\n';
+
+    generate(lmap, 12, 12);
+    show(lmap->cells);
+    cout << '\n';
+
+    char c;
+    cin >> c;
+    if (c == 's') save("out.txt", lmap);
+
+    //cout << "test string stream:\n";
+    //testss();
 }
 
