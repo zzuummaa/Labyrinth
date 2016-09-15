@@ -55,14 +55,10 @@ void createfile()
 
 int main()
 {
-    //createfile();
+    testmapsize();
+    cout << "\n";
 
-    vector<vector<int> > *cells;
-
-    //int w = cells[0].size(), h = cells.size();
-    //initcells(&cells, w, h);
-
-    labmap *lmap = new labmap(cells);
+    labmap *lmap = new labmap();
     load2("in.txt", lmap);
     cout << "loded cells:\n";
     show(lmap->cells);
@@ -77,11 +73,11 @@ int main()
     cout << '\n';
 
     generate(lmap, 12, 6);
+    cout << "Generated labmap:\n";
     show(lmap->cells);
     cout << '\n';
 
-    testmapsize();
-
+    cout << "input command 'e' to exit or 's' to save labyrinth: ";
     char c;
     cin >> c;
     if (c == 's') save("out.txt", lmap);
