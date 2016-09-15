@@ -177,7 +177,7 @@ bool generateexit(labmap *lmap)
     }
 
     if (elemcount == 0) {
-        cout << "no elem first in map\n";
+        cout << "Error: no elem first in map\n";
         return false;
     }
 

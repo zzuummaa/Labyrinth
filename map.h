@@ -28,8 +28,9 @@ void initlabmap();
 class labmap
 {
 private:
-    int w, h;
 public:
+    int w, h;
+
     vector<vector<int> > *cells;
     labmap();
     labmap(int width, int height);

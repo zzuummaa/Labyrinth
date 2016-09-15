@@ -3,6 +3,7 @@
 waysearcher::waysearcher(labmap *lmap)
 {
     this->lmap = lmap;
+    this->opencells = labmap(lmap->getWidth(), lmap->getHeight());
 }
 
 /**
@@ -78,3 +79,53 @@ int waysearcher::loadway(int* l, int* r, int* u, int* d)
     return result;
 }
 
+bool waysearcher::closeway(int way[2], const int x, const int y)
+{
+    if (lmap->getcell(x, y) != 0) {
+        way[0] = x;
+        way[1] = y;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+int waysearcher::closecells(int ways[4][2], int cell[2])
+{
+    int x = cell[0];
+    int y = cell[1];
+
+    int result = 0;
+
+    result += closeway(ways[0], x-1, y);
+    result += closeway(ways[1], x+1, y);
+    result += closeway(ways[2], x, y+1);
+    result += closeway(ways[3], x, y-1);
+
+    return result;
+}
+
+bool waysearcher::mark(const int x, const int y, const int mark)
+{
+    if (opencells.getcell(x, y) != -1) {
+        opencells.setcell(x, y, mark);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool waysearcher::mark(const int m)
+{
+    return mark(x, y, m);
+}
+
+int waysearcher::getmark(const int x, const int y)
+{
+    opencells.getcell(x, y);
+}
+
+int waysearcher::getmark()
+{
+    return getmark(x, y);
+}

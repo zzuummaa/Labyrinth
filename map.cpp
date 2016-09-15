@@ -37,6 +37,12 @@ bool isinnerelement(const vector<vector<int> > *cells, int x, int y)
          & (y < cells->size()      & y >= 0);
 }
 
+bool isinnerelement(const labmap *lmap, int x, int y)
+{
+    return (x < lmap->w & x >= 0)
+         & (y < lmap->h & y >= 0);
+}
+
 labmap::labmap()
 {
     labmap(new vector<vector<int> >);
@@ -47,22 +53,25 @@ labmap::labmap(int width, int height)
     vector<vector<int> > *cells = new vector<vector<int> >;
     initcells(cells, width, height);
 
-    this->cells = cells;
+    setcells(cells);
 }
 
 labmap::labmap(vector<vector<int> > *cells)
 {
-    this->cells = cells;
+    setcells(cells);
 }
 
 void labmap::setcells(vector<vector<int> > *cells)
 {
     this->cells = cells;
+
+    h = cells->size();
+    w = h == 0 ? 0 : (*cells)[0].size();
 }
 
 int labmap::getcell(const int x, const int y)
 {
-    if (isinnerelement(cells, x, y)) {
+    if (isinnerelement(this, x, y)) {
         return (*cells)[y][x];
     } else {
         return -1;
@@ -71,7 +80,7 @@ int labmap::getcell(const int x, const int y)
 
 bool labmap::setcell(const int x, const int y, const int val)
 {
-    if (isinnerelement(cells, x, y)) {
+    if (isinnerelement(this, x, y)) {
         (*cells)[y][x] = val;
         return true;
     } else {
@@ -81,11 +90,10 @@ bool labmap::setcell(const int x, const int y, const int val)
 
 int labmap::getWidth()
 {
-    if (!cells->size()) return 0;
-    else               return (*cells)[0].size();
+    return w;
 }
 
 int labmap::getHeight()
 {
-    return cells->size();
+    return h;
 }

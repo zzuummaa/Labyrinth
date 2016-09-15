@@ -1,5 +1,6 @@
 #include <QCoreApplication>
 #include <labyrinth.h>
+#include <waysearcher.h>
 #include <sstream>
 
 using namespace std;
@@ -72,9 +73,18 @@ int main()
     show(ways);
     cout << '\n';
 
-    generate(lmap, 12, 6);
-    cout << "Generated labmap:\n";
+    cout << "Generate labmap:\n";
+    generate(lmap, 20, 20);
     show(lmap->cells);
+    cout << '\n';
+
+    cout << "search way in labmap:\n";
+    waysearcher wsearcher = waysearcher(lmap);
+    if (searchway(&wsearcher) == true) {
+        show(wsearcher.opencells.cells);
+    } else {
+        cout << "Way not found!\n";
+    }
     cout << '\n';
 
     cout << "input command 'e' to exit or 's' to save labyrinth: ";
