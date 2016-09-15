@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     map.cpp \
     mapload.cpp \
     waysearcher.cpp \
-    mapgenerator.cpp
+    mapgenerator.cpp \
+    waysearchalgorithm.cpp
 
 HEADERS += \
     map.h \

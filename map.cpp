@@ -33,8 +33,8 @@ bool isinnerelement(const vector<vector<int> > *cells, int x, int y)
 {
     if (cells->size() == 0) return false;
 
-    return (x < cells[0].size() & x >= 0)
-         & (y < cells->size()    & y >= 0);
+    return (x < (*cells)[0].size() & x >= 0)
+         & (y < cells->size()      & y >= 0);
 }
 
 labmap::labmap()

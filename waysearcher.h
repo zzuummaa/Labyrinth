@@ -8,13 +8,13 @@ class waysearcher
 public:
     int x, y;
 
-    waysearcher(labmap lmap);
+    waysearcher(labmap *lmap);
     bool go(char d);
     bool go(const int x, const int y);
-    void loadway(int *out, const int x, const int y);
-    void loadway(int* l, int* r, int* u, int* d);
+    bool loadway(int *out, const int x, const int y);
+    int loadway(int* l, int* r, int* u, int* d);
 private:
-    labmap lmap;
+    labmap *lmap;
 };
 
 #endif // WAYSEARCHER_H

@@ -12,9 +12,8 @@ void generateEdgeCell(const labmap *lmap, int *x, int *y)
     int w = (*lmap->cells)[0].size();
     int h = lmap->cells->size();
 
-    if (w < 3 && h < 3) {
-        string *msg = new string("invalid lmap size:");
-        //msg->append(" width=").append(to_string(w)).append(" height=").append(to_string(h));
+        if (w < 3 && h < 3) {
+        cout << "invalid lmap size:\n";
 
         throw 0;
     }
@@ -162,7 +161,7 @@ void generatetunnel(labmap *lmap, const int x, const int y)
 }
 
 /**
- * @brief generateexit Генерирует клетку выхода из лабиринта (номер 3), заменяя случайным образом одну из клеток с номером 1
+ * @brief generateexit Генерирует клетку выхода из лабиринта (номер 3),  случайным образом одну из клеток с номером 1
  * @param lmap
  * @return
  */
@@ -177,12 +176,17 @@ bool generateexit(labmap *lmap)
         }
     }
 
+    if (elemcount == 0) {
+        cout << "no elem first in map\n";
+        return false;
+    }
+
     int numofelem = rand() % elemcount;
     int x = -1;
     int y = -1;
 
-    for (int i=0; i < lmap->getWidth(); i++) {
-        for (int j=0; j < lmap->getHeight(); j++) {
+    for (int i=0; i < lmap->getHeight(); i++) {
+        for (int j=0; j < lmap->getWidth(); j++) {
             if (lmap->getcell(i, j) != 1) continue;
 
             if (numofelem == 0) {
@@ -192,10 +196,6 @@ bool generateexit(labmap *lmap)
                 numofelem--;
             }
         }
-    }
-
-    if (x == -1 && y == -1) {
-        return false;
     }
 
     lmap->setcell(x, y, 3);

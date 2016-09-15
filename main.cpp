@@ -4,6 +4,18 @@
 
 using namespace std;
 
+void testmapsize()
+{
+    cout << "Test labmap size:\n";
+
+    labmap lmap = labmap(2, 1);
+    for (int i = 0; i < lmap.getWidth(); i++) {
+        lmap.setcell(i, 0, 1);
+    }
+
+    show(lmap.cells);
+}
+
 void testss()
 {
     int a = 10;
@@ -56,7 +68,7 @@ int main()
     show(lmap->cells);
     cout << '\n';
 
-    waysearcher ws = waysearcher(*lmap);
+    waysearcher ws = waysearcher(lmap);
 
     int ways[4];
     ws.loadway(&ways[0], &ways[1], &ways[2], &ways[3]);
@@ -64,15 +76,16 @@ int main()
     show(ways);
     cout << '\n';
 
-    generate(lmap, 12, 12);
+    generate(lmap, 12, 6);
     show(lmap->cells);
     cout << '\n';
+
+    testmapsize();
 
     char c;
     cin >> c;
     if (c == 's') save("out.txt", lmap);
 
-    //cout << "test string stream:\n";
-    //testss();
+
 }
 

@@ -35,9 +35,6 @@ public:
     labmap(int width, int height);
     labmap(vector<vector<int> > *cells);
 
-    void loadway(int* l, int* r, int* u, int* d);
-    void loadway(int *out, const int x, const int y);
-
     int getcell(const int x, const  int y);
     bool setcell(const int x, const int y, const int val);
     void setcells(vector<vector<int> > *cells);

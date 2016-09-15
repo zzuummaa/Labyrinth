@@ -1,6 +1,6 @@
 #include "waysearcher.h"
 
-waysearcher::waysearcher(labmap lmap)
+waysearcher::waysearcher(labmap *lmap)
 {
     this->lmap = lmap;
 }
@@ -13,7 +13,7 @@ waysearcher::waysearcher(labmap lmap)
  *         false- не удачное
  */
 bool waysearcher::go(const int x, const int y) {
-    if (lmap.getcell(x, y) != -1) {
+    if (lmap->getcell(x, y) != -1) {
         this->x = x;
         this->y = y;
         return true;
@@ -45,9 +45,15 @@ bool waysearcher::go(char d)
  * @param out указатель, в который загружается значение
  * @param point значение, которое загружается
  */
-void waysearcher::loadway(int *out, const int x, const int y)
+bool waysearcher::loadway(int *out, const int x, const int y)
 {
-    *out = lmap.getcell(x, y);
+    *out = lmap->getcell(x, y);
+
+    if (*out == 1) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 /**
@@ -58,12 +64,17 @@ void waysearcher::loadway(int *out, const int x, const int y)
  * @param r
  * @param u
  * @param d
+ * @return количество клеток с номером 1
  */
-void waysearcher::loadway(int* l, int* r, int* u, int* d)
+int waysearcher::loadway(int* l, int* r, int* u, int* d)
 {
-    loadway(l, x-1, y);
-    loadway(r, x+1, y);
-    loadway(u, x, y+1);
-    loadway(d, x, y-1);
+    int result = 0;
+
+    result += loadway(l, x-1, y);
+    result += loadway(r, x+1, y);
+    result += loadway(u, x, y+1);
+    result += loadway(d, x, y-1);
+
+    return result;
 }
 
